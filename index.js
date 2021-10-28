@@ -58,6 +58,10 @@ run().catch(console.dir);
 app.get("/", (req, res) => {
   res.send("<h1>This is Volunteer network server</h1>");
 });
+
+app.get("/hello", (req, res) => {
+  res.send("Hello");
+});
 // listening port
 app.listen(port, () => {
   console.log("sucessfully by run", port);
