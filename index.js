@@ -49,7 +49,6 @@ async function run() {
       const result = await myEventsCollection.deleteOne(qurey);
       res.json(result);
     });
-    console.log("database connect");
   } finally {
   }
 }
@@ -59,7 +58,7 @@ run().catch(console.dir);
 app.get("/", (req, res) => {
   res.send("<h1>This is Volunteer network server</h1>");
 });
-
+// listening port
 app.listen(port, () => {
   console.log("sucessfully by run", port);
 });
