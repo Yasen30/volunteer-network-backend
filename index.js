@@ -2,6 +2,7 @@ const express = require("express");
 const app = express();
 require("dotenv").config();
 const cors = require("cors");
+const { MongoClient } = require("mongodb");
 const ObjectId = require("mongodb").ObjectId;
 const port = process.env.PORT || 5000;
 
@@ -9,8 +10,7 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 
-const { MongoClient } = require("mongodb");
-const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.i5gnt.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.i4onw.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -30,6 +30,12 @@ async function run() {
       const services = await cursor.toArray();
       res.send(services);
     });
+    app.post("/events", async (req, res) => {
+      const newEvents = req.body;
+      const result = await eventsCollection.insertOne(newEvents);
+      res.json(result);
+    });
+
     // my events post
     app.post("/my-event", async (req, res) => {
       const info = req.body;
@@ -49,6 +55,7 @@ async function run() {
       const result = await myEventsCollection.deleteOne(qurey);
       res.json(result);
     });
+    console.log("database connect ");
   } finally {
   }
 }
