@@ -39,12 +39,12 @@ async function run() {
     // my events post
     app.post("/resigter-events", async (req, res) => {
       const info = req.body;
-      const resutl = await myEventsCollection.insertOne(info);
+      const resutl = await ResigterEvents.insertOne(info);
       res.json(resutl);
     });
     // my events get
     app.get("/resigter-events", async (req, res) => {
-      const curosor = myEventsCollection.find();
+      const curosor = ResigterEvents.find();
       const result = await curosor.toArray();
       res.send(result);
     });
@@ -52,7 +52,7 @@ async function run() {
     app.delete("/resigter-events/:id", async (req, res) => {
       const id = req.params.id;
       const qurey = { _id: ObjectId(id) };
-      const result = await myEventsCollection.deleteOne(qurey);
+      const result = await ResigterEvents.deleteOne(qurey);
       res.json(result);
     });
     console.log("database connect ");
