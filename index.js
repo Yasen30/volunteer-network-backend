@@ -23,7 +23,7 @@ async function run() {
     await client.connect();
     const database = client.db("volunteer-network");
     const eventsCollection = database.collection("events");
-    const myEventsCollection = database.collection("myEvents");
+    const ResigterEvents = database.collection("resigterEvents");
     // services post
     app.get("/events", async (req, res) => {
       const cursor = eventsCollection.find();
@@ -37,19 +37,19 @@ async function run() {
     });
 
     // my events post
-    app.post("/my-event", async (req, res) => {
+    app.post("/resigter-events", async (req, res) => {
       const info = req.body;
       const resutl = await myEventsCollection.insertOne(info);
       res.json(resutl);
     });
     // my events get
-    app.get("/my-events", async (req, res) => {
+    app.get("/resigter-events", async (req, res) => {
       const curosor = myEventsCollection.find();
       const result = await curosor.toArray();
       res.send(result);
     });
     // my events delete
-    app.delete("/my-events/:id", async (req, res) => {
+    app.delete("/resigter-events/:id", async (req, res) => {
       const id = req.params.id;
       const qurey = { _id: ObjectId(id) };
       const result = await myEventsCollection.deleteOne(qurey);
